@@ -64,16 +64,16 @@ class EEGClassifier(_EEGNeuralNet, NeuralNetClassifier):
 
     def __init__(
         self,
-        module,
-        *args,
-        criterion=CrossEntropyLoss,
-        cropped=False,
-        callbacks=None,
-        iterator_train__shuffle=True,
-        iterator_train__drop_last=True,
-        aggregate_predictions=True,
-        **kwargs,
-    ):
+            module: object,
+            *args: object,
+            criterion: object = CrossEntropyLoss,
+            cropped: object = False,
+            callbacks: object = None,
+            iterator_train__shuffle: object = True,
+            iterator_train__drop_last: object = True,
+            aggregate_predictions: object = True,
+            **kwargs: object,
+    ) -> object:
         self.cropped = cropped
         self.aggregate_predictions = aggregate_predictions
         self._last_window_inds_ = None

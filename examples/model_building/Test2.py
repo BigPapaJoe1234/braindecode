@@ -1,10 +1,10 @@
-
-from braindecode.models import EEGResNet
+from braindecode.models import EEGNetv4
 import mne
 import numpy as np
 
 from skorch.dataset import ValidSplit
 from braindecode import EEGClassifier
+
 """
 Simple training on MNE epochs
 =============================
@@ -55,7 +55,6 @@ print(f"All the Braindecode models:\n{list(models_dict.keys())}")
 # ``ShallowFBCSPNet``. You can now import it from Braindecode:
 
 
-
 ######################################################################
 # Examining the model
 # ~~~~~~~~~~~~~~~~~~~
@@ -63,7 +62,7 @@ print(f"All the Braindecode models:\n{list(models_dict.keys())}")
 # You can find this information either in the online documentation here:
 # :class:`braindecode.models.ShallowFBCSPNet` or directly in the module's docstring:
 
-print(EEGResNet.__doc__)
+print(EEGNetv4.__doc__)
 
 ######################################################################
 # Additionally, you might be interested in visualizing the model's architecture.
@@ -71,7 +70,7 @@ print(EEGResNet.__doc__)
 # To initialize it, we need to specify some parameters that we set at random
 # values for now:
 
-model = EEGResNet(
+model = EEGNetv4(
     n_chans=14,
     n_times=1000,
     n_outputs=2,
@@ -94,8 +93,8 @@ print(model)
 # that simulate a 4-class classification problem.
 
 
-
-info = mne.create_info(ch_names=["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"], sfreq=128.0, ch_types="eeg")
+info = mne.create_info(ch_names=["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"],
+                       sfreq=128.0, ch_types="eeg")
 X = np.random.randn(29, 14, 1025)  # 29 epochs, 14 channels, (@128Hz)
 epochs = mne.EpochsArray(X, info=info)
 y = np.random.randint(0, 1, size=29)  # 2 classes
@@ -127,7 +126,7 @@ y = np.random.randint(0, 1, size=29)  # 2 classes
 
 
 net = EEGClassifier(
-    "EEGResNet",
+    "EEGNetv4",
     module__final_conv_length="auto",
     train_split=ValidSplit(0.2),
     # To train a neural network you need validation split, here, we use 20%.
